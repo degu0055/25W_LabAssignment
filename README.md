@@ -12,7 +12,7 @@
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
 
 ## Deployment Files Subfolder
-<!-- Include all Kubernetes deployment YAML files in a folder named `Deployment Files`.
+ <!-- Include all Kubernetes deployment YAML files in a folder named `Deployment Files`.
 Ensure these files are clearly named (e.g., `store-front-deployment.yaml`, `order-service-deployment.yaml`). -->
 
 ## Table of Microservice Repositories
