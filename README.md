@@ -1,6 +1,6 @@
 # 25W_LabAssignment
 
-# Updated Application Architecture
+## Updated Application Architecture
 
 ## Architecture Diagram
 <!-- Draw the updated architecture diagram using Draw.io and include it in the README. -->
