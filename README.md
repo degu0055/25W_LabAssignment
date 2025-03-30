@@ -13,8 +13,7 @@
 
 ## Deployment Files Subfolder
 
-Link: 
-https://github.com/degu0055/25W_LabAssignment/tree/main/Deployment%20Files
+Link: https://github.com/degu0055/25W_LabAssignment/tree/main/Deployment%20Files
  <!-- Include all Kubernetes deployment YAML files in a folder named `Deployment Files`.
 Ensure these files are clearly named (e.g., `store-front-deployment.yaml`, `order-service-deployment.yaml`). -->
 
