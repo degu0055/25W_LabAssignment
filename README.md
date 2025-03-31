@@ -1,23 +1,14 @@
 # 25W_LabAssignment
 
-## Updated Application Architecture
-
 ## Architecture Diagram
 <!-- Draw the updated architecture diagram using Draw.io and include it in the README. -->
 ![Diagram](https://github.com/degu0055/25W_LabAssignment/raw/main/images/diagram.png)
-
 
 ## Application and Architecture Explanation
 <!-- Briefly explain the application functionality and how the architecture works. -->
 
 ## Deployment Instructions
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
-
-## Deployment Files Subfolder
-
-Link: https://github.com/degu0055/25W_LabAssignment/tree/main/Deployment%20Files
- <!-- Include all Kubernetes deployment YAML files in a folder named `Deployment Files`.
-Ensure these files are clearly named (e.g., `store-front-deployment.yaml`, `order-service-deployment.yaml`). -->
 
 ## Table of Microservice Repositories
 | Service        | Repository Link |
@@ -33,6 +24,13 @@ Ensure these files are clearly named (e.g., `store-front-deployment.yaml`, `orde
 
 ## Issues or Limitations (Optional)
 <!-- Any issues or limitations in the implementation. -->
+
+## Deployment Files Subfolder
+ <!-- Include all Kubernetes deployment YAML files in a folder named `Deployment Files`.
+Ensure these files are clearly named (e.g., `store-front-deployment.yaml`, `order-service-deployment.yaml`). -->
+
+Link: https://github.com/degu0055/25W_LabAssignment/tree/main/Deployment%20Files
+
 
 ## Demo Video
 <!-- Record a **5-minute max** demo video showcasing the following:
