@@ -9,7 +9,7 @@ https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file
 
 ## Architecture Diagram
 <!-- Draw the updated architecture diagram using Draw.io and include it in the README. -->
-![Diagram](https://github.com/degu0055/25W_LabAssignment/raw/main/images/diagram.png)
+![Diagram](https://github.com/degu0055/25W_LabAssignment/raw/main/images/diagram2.png)
 
 ## Application and Architecture Explanation
 <!-- Briefly explain the application functionality and how the architecture works. -->
