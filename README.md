@@ -1,3 +1,6 @@
+<!-- Github:
+https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file -->
+
 # 25W_LabAssignment
 
 ## Architecture Diagram
@@ -6,6 +9,22 @@
 
 ## Application and Architecture Explanation
 <!-- Briefly explain the application functionality and how the architecture works. -->
+## Customer  
+- **Store-front**  
+- **Order-service**  
+- **Product-service**  
+- **Order queue**  
+
+## Employee/Admin  
+- **Store-admin**  
+- **Makeline-service**  
+- **Order-database**  
+- **AI-service**  
+  - **Large Language Model**  
+  - **Image Generator Model**  
+
+
+
 
 ## Deployment Instructions
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
