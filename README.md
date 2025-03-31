@@ -13,21 +13,24 @@ https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file
 
 ## Application and Architecture Explanation
 <!-- Briefly explain the application functionality and how the architecture works. -->
-### Customer  
-- **Store-front**  
-- **Order-service**  
-- **Product-service**  
-- **Order queue**  
 
-### Employee/Admin  
-- **Store-admin**  
-- **Makeline-service**  
-- **Order-database**  
+### Customer 
+Customers can view a list of products on the homepage. The homepage displays product images, prices, and additional details. There is an “Add to Cart” button that allows customers to collect their orders. They can add items, edit their selections, or remove products before finalizing the order.
+
+- **Store-front**: A user interface where clients can explore and purchase items 
+- **Order-service**: Handles customer orders and communicates with Azure Service Bus for message queuing  
+- **Product-service**: Manages product listings, details, and inventory 
+- **Order queue**: A message broker helps services communicate with each other. It queues orders for processing  
+
+### Employee/Admin
+For this web app to function properly, an admin must first create a product list, allowing customers to view available products and place orders. Once an order is received, the admin can access the order details for processing, which will allow them to clear the logs later.
+
+- **Store-admin**: A user interface where employee or admin can add and edit a product
+- **Makeline-service**: Retrieve the order details from the service bus and then proceed to process the order
+- **Order-database**: A data storage for the product  
 - **AI-service**  
-  - **Large Language Model**  
-  - **Image Generator Model**  
-
-
+  - **Large Language Model**: A chatGPT 4 that can offer recommendations specifically regarding product information.
+  - **Image Generator Model**: To create an image derived from the tag and product description. 
 
 
 ## Deployment Instructions
