@@ -1,5 +1,9 @@
-<!-- Github:
-https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file -->
+<!-- 
+
+Github:
+https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file 
+
+-->
 
 # 25W_LabAssignment
 
@@ -9,13 +13,13 @@ https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file -->
 
 ## Application and Architecture Explanation
 <!-- Briefly explain the application functionality and how the architecture works. -->
-## Customer  
+### Customer  
 - **Store-front**  
 - **Order-service**  
 - **Product-service**  
 - **Order queue**  
 
-## Employee/Admin  
+### Employee/Admin  
 - **Store-admin**  
 - **Makeline-service**  
 - **Order-database**  
