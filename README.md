@@ -45,8 +45,9 @@ https://github.com/degu0055/25W_LabAssignment?tab=readme-ov-file
 | Store-Front   | `<Docker Hub Link>` |
 | Order-Service | `<Docker Hub Link>` |
 
+<!--  Uncomment this if found an answer
 ## Issues or Limitations (Optional)
-<!-- Any issues or limitations in the implementation. -->
+Any issues or limitations in the implementation. -->
 
 ## Deployment Files Subfolder
  <!-- Include all Kubernetes deployment YAML files in a folder named `Deployment Files`.
