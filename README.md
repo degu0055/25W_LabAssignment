@@ -60,10 +60,12 @@ Link: https://github.com/degu0055/25W_LabAssignment/tree/main/Deployment%20Files
 
 
 ## Demo Video
-<!-- Record a **5-minute max** demo video showcasing the following:
+<!-- Record a 5-minute max demo video showcasing the following:
 
-- The application in action after deployment to the **AKS cluster**.
-- **AI-generated product descriptions and images**.
-- **Integration with the managed order queue service**.
+- The application in action after deployment to AKS cluster.
+- AI-generated product descriptions and images.
+- Integration with the managed order queue service.
 
-Upload the video to **YouTube** and include a link to the video in your `README.md` file under a **"Demo Video"** section. -->
+Upload the video to YouTube and include a link to the video in your README.md file under a "Demo Video" section. -->
+
+
