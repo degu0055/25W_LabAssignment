@@ -35,6 +35,121 @@ For this web app to function properly, an admin must first create a product list
 
 ## Deployment Instructions
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
+## Prerequisite:
+- Installed kubectl
+- Azure Kubernetes Cluster
+- AI Backing Services
+
+## Task 1: Retrieve and Configure API Keys
+
+1. **Get API Keys:**
+    - Go to the Keys and Endpoints section of your Azure OpenAI resource.
+    - Copy the API Key (API key 1) and Endpoint URL.
+2. **Base64 Encode the API Key:**
+    ```sh
+    echo -n "<your-api-key>" | base64
+    ```
+    - Replace `<your-api-key>` with your actual API key.
+
+## Task 2: Update AI Service Deployment Configuration in the Deployment Files folder.
+
+1. **Modify Secrets YAML:**
+    - Edit the `secrets.yaml` file.
+    - Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `API_KEY`.
+2. **Modify Deployment YAML:**
+    - Edit the `aps-all-in-one.yaml` file.
+    - Replace the placeholders with the configurations you retrieved:
+        - `AZURE_OPENAI_DEPLOYMENT_NAME`: Enter the deployment name for GPT-4.
+        - `AZURE_OPENAI_ENDPOINT`: Enter the endpoint URL for the GPT-4 deployment.
+        - `AZURE_OPENAI_DALLE_ENDPOINT`: Enter the endpoint URL for the DALL-E 3 deployment.
+        - `AZURE_OPENAI_DALLE_DEPLOYMENT_NAME`: Enter the deployment name for DALL-E 3.
+3. **Example configuration in the YAML file:**
+    ```yaml
+    - name: AZURE_OPENAI_API_VERSION
+      value: "2024-07-01-preview"
+    - name: AZURE_OPENAI_DEPLOYMENT_NAME
+      value: "gpt-4-deployment"
+    - name: AZURE_OPENAI_ENDPOINT
+      value: "https://<your-openai-resource-name>.openai.azure.com/"
+    - name: AZURE_OPENAI_DALLE_ENDPOINT
+      value: "https://<your-openai-resource-name>.openai.azure.com/"
+    - name: AZURE_OPENAI_DALLE_DEPLOYMENT_NAME
+      value: "dalle-3-deployment"
+    ```
+
+## Task 3: Deploy the ConfigMaps and Secrets
+
+- **Deploy the ConfigMap for RabbitMQ Plugins:**
+    ```sh
+    kubectl apply -f config-maps.yaml
+    ```
+- **Create and Deploy the Secret for OpenAI API:**
+    - Make sure that you have replaced `Base64-encoded-API-KEY` in `secrets.yaml` with your Base64-encoded OpenAI API key.
+    ```sh
+    kubectl apply -f secrets.yaml
+    ```
+- **Verify:**
+    ```sh
+    kubectl get configmaps
+    kubectl get secrets
+    ```
+
+## Task 4: Deploy the Application
+
+```sh
+kubectl apply -f aps-all-in-one.yaml
+```
+
+### Validate the Deployment
+
+- **Check Pods and Services:**
+    ```sh
+    kubectl get pods
+    kubectl get services
+    ```
+- **Test Frontend Access:**
+    - Locate the external IPs for store-front and store-admin services:
+    ```sh
+    kubectl get services
+    ```
+    - Access the Store Front app at the external IP on port 80.
+    - Access the Store Admin app at the external IP on port 80.
+
+## Task 5: Deploy Virtual Customer and Worker
+
+```sh
+kubectl apply -f admin-tasks.yaml
+```
+
+- **Monitor Virtual Customer:**
+    ```sh
+    kubectl logs -f deployment/virtual-customer
+    ```
+- **Monitor Virtual Worker:**
+    ```sh
+    kubectl logs -f deployment/virtual-worker
+    ```
+
+## Optional: Scale and Monitor Services
+
+### Scale Deployments:
+
+- **Scale the `order-service` to 3 replicas:**
+    ```sh
+    kubectl scale deployment order-service --replicas=3
+    ```
+- **Check Scaling:**
+    ```sh
+    kubectl get pods
+    ```
+- **Monitor Resource Usage:**
+    - Enable metrics server for resource monitoring.
+    - Use `kubectl top` to monitor pod and node usage:
+    ```sh
+    kubectl top pods
+    kubectl top nodes
+    
+
 
 ## Table of Microservice Repositories
 | Service        | Repository Link |
