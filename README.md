@@ -147,7 +147,7 @@ kubectl get services
 - Access the **Store Front** app at the external IP on port `80`.
 - Access the **Store Admin** app at the external IP on port `80`.
 
-### Task 7: Deploy Virtual Customer and Worker
+### Optional: Deploy Virtual Customer and Worker
 ```sh
 kubectl apply -f admin-tasks.yaml
 ```
