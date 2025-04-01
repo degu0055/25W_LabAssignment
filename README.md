@@ -47,9 +47,10 @@ AI Backing Services
     * Copy the API Key (API key 1) and Endpoint URL.
 2. Base64 Encode the API Key:
 
-    ```sh
+    ```php
 echo -n <your-api-key> | base64  
     ```
+
     * Replace <your-api-key> with your actual API key.
 
 ### Task 2: Update AI Service Deployment Configuration in the Deployment Files folder.
