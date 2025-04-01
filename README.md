@@ -46,8 +46,9 @@ AI Backing Services
     * Go to the Keys and Endpoints section of your Azure OpenAI resource.
     * Copy the API Key (API key 1) and Endpoint URL.
 2. Base64 Encode the API Key:
+
     ```sh
-echo -n "<your-api-key>" | base64  
+echo -n <your-api-key> | base64  
     ```
     * Replace `<your-api-key>` with your actual API key.
 
