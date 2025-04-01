@@ -36,8 +36,8 @@ For this web app to function properly, an admin must first create a product list
 ## Deployment Instructions
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
 ### Prerequisite:
-Installed kubectl  
-Azure Kubernetes Cluster  
+- Installed kubectl  
+- Azure Kubernetes Cluster  
 
 ### Task 1: Set Up the AI Backing Services
 To enable AI-generated product descriptions and image generation features, you will deploy the required Azure OpenAI Services for GPT-4 (text generation) and DALL-E 3 (image generation). This step is essential to configure the AI Service component in the Algonquin Pet Store application.
