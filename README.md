@@ -180,6 +180,7 @@ kubectl get pods
 ```sh
 kubectl top pods
 kubectl top nodes
+```
 
 ## Table of Microservice Repositories
 | Service        | Repository Link |
