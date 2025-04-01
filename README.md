@@ -193,7 +193,7 @@ kubectl top nodes
 | Service        | Docker Image Link |
 |---------------|------------------|
 | Store-Front   | `<Docker Hub Link>` |
-| Product-Service   | `<GitHub Link>`   |
+| Product-Service   | `<Docker Hub Link>`   |
 | Order-Service | `<Docker Hub Link>` |
 
 <!--  Uncomment this if found an answer

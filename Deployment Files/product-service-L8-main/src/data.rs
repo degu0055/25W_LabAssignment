@@ -3,75 +3,75 @@ use crate::configuration::Settings;
 
 pub fn fetch_products(_settings: &Settings) -> Vec<Product> {
     vec![
-        Product {
+        Product { 
             id: 1,
-            name: "Contoso Catnip's Friend".to_string(),
+            name: "Insignia 50 Class 4K UHDTV (2160p)".to_string(),
             price: 9.99,
-            description: "Watch your feline friend embark on a fishing adventure with Contoso Catnip's Friend toy. Packed with irresistible catnip and dangling fish lure.".to_string(),
-            image: "/catnip.jpg".to_string()
+            description: "The Insignia 50 Class 4K UHDTV (2160p) HDR Smart LED-LCD TV (NS-50F301NA24) offers a  49.5 screen size with 3840 x 2160 4K UHD resolution , perfect for viewing at 6-10 feet".to_string(),
+            image: "/1.webp".to_string()
         },
         Product {
             id: 2,
-            name: "Salty Sailor's Squeaky Squid".to_string(),
+            name: "2Pack Metal Wall Mount for eufy SoloCam ".to_string(),
             price: 6.99,
-            description: "Let your dog set sail with the Salty Sailor's Squeaky Squid. This interactive toy provides hours of fun, featuring multiple squeakers and crinkle tentacles.".to_string(),
-            image: "/squid.jpg".to_string()
+            description: "Compatible with eufyCam 2C/2C Pro, 2/2 Pro, 3C/S300, 3/S330, Eufycam E, also for SoloCam S220/C210, also compatible with other cameras with 1/4 threaded hole".to_string(),
+            image: "/2.webp".to_string()
         },
         Product {
             id: 3,
-            name: "Mermaid's Mice Trio".to_string(),
+            name: "Sandisk SSD Extreme 1TB Extreme".to_string(),
             price: 12.99,
-            description: "Entertain your kitty with the Mermaid's Mice Trio. These adorable plush mice are dressed as mermaids and filled with catnip to captivate their curiosity.".to_string(),
-            image: "/mermaid.jpg".to_string()
+            description: "​The SanDisk Extreme Portable SSD is a high-performance external solid-state drive designed to meet the demands of users requiring fast and reliable storage".to_string(),
+            image: "/3.webp".to_string()
         },
         Product {
             id: 4,
-            name: "Ocean Explorer's Puzzle Ball".to_string(),
+            name: "Apple - Mac mini Desktop".to_string(),
             price: 11.99,
-            description: "Challenge your pet's problem-solving skills with the Ocean Explorer's Puzzle Ball. This interactive toy features hidden compartments and treats, providing mental stimulation and entertainment.".to_string(),
-            image: "/ocean.jpg".to_string()
+            description: "​The Apple Mac mini is a compact desktop computer that delivers powerful performance in a small form factor".to_string(),
+            image: "/4.webp".to_string()
         },
         Product {
             id: 5,
-            name: "Pirate Parrot Teaser Wand".to_string(),
+            name: "Apple Watch Ultra 2".to_string(),
             price: 8.99,
-            description: "Engage your cat in a playful pursuit with the Pirate Parrot Teaser Wand. The colorful feathers and jingling bells mimic the mischievous charm of a pirate's parrot.".to_string(),
-            image: "/pirate.jpg".to_string()
+            description: "​The Apple Watch Ultra 2, released in September 2023, is a premium smartwatch designed for sports and adventure enthusiasts".to_string(),
+            image: "/5.webp".to_string()
         },
         Product {
             id: 6,
-            name: "Seafarer's Tug Rope".to_string(),
+            name: "Apple AirPods 4 Wireless Earbuds".to_string(),
             price: 14.99,
-            description: "Tug-of-war meets nautical adventure with the Seafarer's Tug Rope. Made from marine-grade rope, it's perfect for interactive play and promoting dental health in dogs.".to_string(),
-            image: "/tug.jpg".to_string()
+            description: "The Apple AirPods 4, introduced in September 2024, represent a significant advancement in Apple's wireless earbud lineup, offering enhanced features and improved performance".to_string(),
+            image: "/6.webp".to_string()
         },
         Product {
             id: 7,
-            name: "Seashell Snuggle Bed".to_string(),
+            name: "SAMSUNG Q-Series 11.1.4ch Wireless".to_string(),
             price: 19.99,
-            description: "Give your furry friend a cozy spot to curl up with the Seashell Snuggle Bed. Shaped like a seashell, this plush bed provides comfort and relaxation for cats and small dogs.".to_string(),
-            image: "/bed.jpg".to_string()
+            description: "​The Samsung Q-Series 11.1.4 Channel Wireless Dolby Atmos Soundbar, particularly the HW-Q990D model, offers an immersive audio experience designed to elevate home entertainment systems".to_string(),
+            image: "/7.webp".to_string()
         },
         Product {
             id: 8,
-            name: "Nautical Knot Ball".to_string(),
+            name: "Roku Streaming Stick 4K 2022".to_string(),
             price: 7.99,
-            description: "Unleash your dog's inner sailor with the Nautical Knot Ball. Made from sturdy ropes, it's perfect for fetching, tugging, and satisfying their chewing needs.".to_string(),
-            image: "/knot.jpg".to_string()
+            description: "​The Roku Streaming Stick 4K, released in 2022, is a compact and powerful streaming device that enhances your TV's capabilities by providing access to a wide range of streaming services in high-quality resolution".to_string(),
+            image: "/8.webp".to_string()
         },
         Product {
             id: 9,
-            name: "Contoso Claw's Crabby Cat Toy".to_string(),
+            name: "Apple MacBook Air 13-inch 2022 M2".to_string(),
             price: 3.99,
-            description: "Watch your cat go crazy for Contoso Claw's Crabby Cat Toy. This crinkly and catnip-filled toy will awaken their hunting instincts and provide endless entertainment.".to_string(),
-            image: "/crabby.jpg".to_string()
+            description: "​The Apple MacBook Air 13-inch (2022) with M2 chip is a sleek and powerful ultrabook designed for users seeking portability without sacrificing performance".to_string(),
+            image: "/9.webp".to_string()
         },
         Product {
             id: 10,
-            name: "Ahoy Doggy Life Jacket".to_string(),
+            name: "Apple 2022 10.9-inch iPad ".to_string(),
             price: 5.99,
-            description: "Ensure your furry friend stays safe during water adventures with the Ahoy Doggy Life Jacket. Designed for dogs, this flotation device offers buoyancy and visibility in style.".to_string(),
-            image: "/lifejacket.jpg".to_string()
+            description: "​The Apple iPad (10th Generation), released in October 2022, offers a blend of performance and portability, making it suitable for both work and entertainment".to_string(),
+            image: "/10.webp".to_string()
         }
     ]
 }
