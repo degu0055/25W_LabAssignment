@@ -50,7 +50,7 @@ AI Backing Services
     ```sh
 echo -n <your-api-key> | base64  
     ```
-    * Replace `<your-api-key>` with your actual API key.
+    * Replace <your-api-key> with your actual API key.
 
 ### Task 2: Update AI Service Deployment Configuration in the Deployment Files folder.
 
