@@ -50,73 +50,6 @@ spec:
     app: mongodb # Target pods with label `app: mongodb`
   type: ClusterIP # Internal cluster service
 ---
-# StatefulSet for RabbitMQ
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: rabbitmq
-spec:
-  serviceName: rabbitmq # Headless service for RabbitMQ
-  replicas: 1 # Single replica
-  selector:
-    matchLabels:
-      app: rabbitmq
-  template:
-    metadata:
-      labels:
-        app: rabbitmq
-    spec:
-      nodeSelector:
-        "kubernetes.io/os": linux
-      containers:
-        - name: rabbitmq
-          image: rabbitmq:3-management # RabbitMQ image with management UI
-          ports:
-            - containerPort: 5672 # AMQP protocol port
-              name: rabbitmq-amqp
-            - containerPort: 15672 # HTTP management UI port
-              name: rabbitmq-http
-          env: # Environment variables for RabbitMQ
-            - name: RABBITMQ_DEFAULT_USER
-              value: "username" # Default username
-            - name: RABBITMQ_DEFAULT_PASS
-              value: "password" # Default password
-          resources: # Resource limits and requests
-            requests:
-              cpu: 10m
-              memory: 128Mi
-            limits:
-              cpu: 250m
-              memory: 256Mi
-          volumeMounts: # Mount configuration for RabbitMQ plugins
-            - name: rabbitmq-enabled-plugins
-              mountPath: /etc/rabbitmq/enabled_plugins
-              subPath: enabled_plugins
-      volumes:
-        - name: rabbitmq-enabled-plugins
-          configMap:
-            name: rabbitmq-enabled-plugins
-            items:
-              - key: rabbitmq_enabled_plugins
-                path: enabled_plugins
----
-# Service for RabbitMQ
-apiVersion: v1
-kind: Service
-metadata:
-  name: rabbitmq
-spec:
-  selector:
-    app: rabbitmq
-  ports:
-    - name: rabbitmq-amqp
-      port: 5672
-      targetPort: 5672
-    - name: rabbitmq-http
-      port: 15672
-      targetPort: 15672
-  type: ClusterIP
----
 # Deployment for Order Service
 apiVersion: apps/v1
 kind: Deployment
@@ -136,20 +69,21 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: order-service
-          image: ramymohamed/order-service-l8:latest # Custom image for order service
+          image: degu0055/order-service-bestbuy:latest # Custom image for order service
           ports:
             - containerPort: 3000 # Order service listens on this port
           env: # Environment variables for configuration
-            - name: ORDER_QUEUE_HOSTNAME
-              value: "rabbitmq"
-            - name: ORDER_QUEUE_PORT
-              value: "5672"
-            - name: ORDER_QUEUE_USERNAME
-              value: "username"
-            - name: ORDER_QUEUE_PASSWORD
-              value: "password"
-            - name: ORDER_QUEUE_NAME
+            - name: AZURE_SERVICE_BUS_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: azure-servicebus-secret
+                  key: connectionString
+            - name: AZURE_SERVICE_BUS_QUEUE_NAME
               value: "orders"
+            - name: AZURE_SERVICE_BUS_TOPIC_NAME
+              value: "orders"
+            - name: AZURE_SERVICE_BUS_SUBSCRIPTION_NAME
+              value: "degu0055@algonquinlive.com"
             - name: FASTIFY_ADDRESS
               value: "0.0.0.0"
           resources: # Resource allocation
@@ -180,22 +114,6 @@ spec:
             failureThreshold: 5
             initialDelaySeconds: 3
             periodSeconds: 3
-      initContainers: # Initialization container to wait for RabbitMQ
-        - name: wait-for-rabbitmq
-          image: busybox
-          command:
-            [
-              "sh",
-              "-c",
-              "until nc -zv rabbitmq 5672; do echo waiting for rabbitmq; sleep 2; done;",
-            ]
-          resources:
-            requests:
-              cpu: 1m
-              memory: 50Mi
-            limits:
-              cpu: 100m
-              memory: 256Mi
 ---
 # Service for Order Service
 apiVersion: v1
@@ -211,7 +129,6 @@ spec:
   selector:
     app: order-service
 ---
-# Deployment for Makeline Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -234,14 +151,6 @@ spec:
           ports:
             - containerPort: 3001 # Makeline service listens on this port
           env: # Environment variables for configuration
-            - name: ORDER_QUEUE_URI
-              value: "amqp://rabbitmq:5672" # RabbitMQ connection string
-            - name: ORDER_QUEUE_USERNAME
-              value: "username"
-            - name: ORDER_QUEUE_PASSWORD
-              value: "password"
-            - name: ORDER_QUEUE_NAME
-              value: "orders"
             - name: ORDER_DB_URI
               value: "mongodb://mongodb:27017" # MongoDB connection string
             - name: ORDER_DB_NAME
