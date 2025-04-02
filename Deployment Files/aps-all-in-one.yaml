@@ -218,7 +218,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: product-service
-          image: ramymohamed/product-service-l8:latest # Custom product service image
+          image: degu0055/product-service-bestbuy:latest # Custom product service image
           ports:
             - containerPort: 3002 # Product service listens on this port
           env: # Environment variables for configuration
@@ -279,7 +279,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: store-front
-          image: ramymohamed/store-front-l8:latest # Front-end store application
+          image: degu0055/store-front-bestbuy:latest # Front-end store application
           ports:
             - containerPort: 8080 # Front-end app port
               name: store-front
