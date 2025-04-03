@@ -112,7 +112,10 @@ Replace `<your-api-key>` with your actual API key.
   - name: AZURE_SERVICE_BUS_SUBSCRIPTION_NAME
     value: "<SUBSCRIPTION_NAME>"
 
-  
+  ```
+
+  ```yaml
+
   # Configuration for AI
   - name: AZURE_OPENAI_API_VERSION
     value: "2024-07-01-preview"
@@ -124,6 +127,7 @@ Replace `<your-api-key>` with your actual API key.
     value: "https://<your-openai-resource-name>.openai.azure.com/"
   - name: AZURE_OPENAI_DALLE_DEPLOYMENT_NAME
     value: "dalle-3-deployment"
+    
   ```
 
 ### Task 5: Deploy the Secrets
