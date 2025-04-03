@@ -99,12 +99,12 @@ Replace `<your-api-key>` with your actual API key.
 - Replace the placeholders with the configurations you retrieved:
   ```yaml
 
-    # Configuration for Order-service
-    - name: AZURE_SERVICE_BUS_CONNECTION_STRING
-    valueFrom:
-      secretKeyRef:
-        name: azure-servicebus-secret
-        key: connectionString
+  # Configuration for Order-service
+  - name: AZURE_SERVICE_BUS_CONNECTION_STRING
+  valueFrom:
+    secretKeyRef:
+      name: azure-servicebus-secret
+      key: connectionString
   - name: AZURE_SERVICE_BUS_QUEUE_NAME
     value: "<QUEUE_NAME>"
   - name: AZURE_SERVICE_BUS_TOPIC_NAME
@@ -126,21 +126,18 @@ Replace `<your-api-key>` with your actual API key.
     value: "dalle-3-deployment"
   ```
 
-### Task 5: Deploy the ConfigMaps and Secrets
-#### Deploy the ConfigMap for RabbitMQ Plugins:
-```sh
-kubectl apply -f config-maps.yaml
-```
+### Task 5: Deploy the Secrets
 
 #### Create and Deploy the Secret for OpenAI API:
-- Make sure that you have replaced `Base64-encoded-API-KEY` in `secrets.yaml` with your Base64-encoded OpenAI API key.
+- Make sure that you have replaced `Base64-encoded-API-KEY` in `secrets-orderService.yaml` and `secrets-AI.yaml` with your Base64-encoded OpenAI API key.
+
 ```sh
-kubectl apply -f secrets.yaml
+kubectl apply -f secrets-orderService.yaml
+kubectl apply -f secrets-AI.yaml
 ```
 
 #### Verify:
 ```sh
-kubectl get configmaps
 kubectl get secrets
 ```
 
