@@ -204,16 +204,16 @@ kubectl top nodes
 ## Table of Microservice Repositories
 | Service        | Repository Link |
 |---------------|----------------|
-| Store-Front   | `<GitHub Link>`   |
-| Product-Service   | `<GitHub Link>`   |
-| Order-Service | `<GitHub Link>`   |
+| Store-Front   | `https://github.com/degu0055/store-front-final`   |
+| Product-Service   | `https://github.com/degu0055/product-service-final`   |
+| Order-Service | `https://github.com/degu0055/order-service-final`   |
 
 ## Table of Docker Images
 | Service        | Docker Image Link |
 |---------------|------------------|
-| Store-Front   | `<Docker Hub Link>` |
-| Product-Service   | `<Docker Hub Link>`   |
-| Order-Service | `<Docker Hub Link>` |
+| Store-Front   | `https://hub.docker.com/repository/docker/degu0055/store-front-bestbuy` |
+| Product-Service   | `https://hub.docker.com/repository/docker/degu0055/product-service-bestbuy/`   |
+| Order-Service | `https://hub.docker.com/repository/docker/degu0055/order-service-bestbuy/` |
 
 <!--  Uncomment this if found an answer
 ## Issues or Limitations (Optional)
