@@ -101,7 +101,6 @@ Replace `<your-api-key>` with your actual API key.
 
   # Configuration for Order-service
   # Make sure to remove the rabbitMQ since this use azure service bus
-
   - name: AZURE_SERVICE_BUS_CONNECTION_STRING
   valueFrom:
     secretKeyRef:
