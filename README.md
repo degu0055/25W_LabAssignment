@@ -146,7 +146,7 @@ kubectl apply -f secrets-AI.yaml
 kubectl get secrets
 ```
 
-- If you prefer not to store secrets in a YAML file, you can use this method in the CLI.
+- If you prefer not to store secrets in a YAML file, you can use this method in the CLI
 
 ```sh
 
