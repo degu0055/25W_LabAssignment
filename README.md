@@ -100,6 +100,8 @@ Replace `<your-api-key>` with your actual API key.
   ```yaml
 
   # Configuration for Order-service
+  # Make sure to remove the rabbitMQ since this use azure service bus
+
   - name: AZURE_SERVICE_BUS_CONNECTION_STRING
   valueFrom:
     secretKeyRef:
@@ -127,7 +129,7 @@ Replace `<your-api-key>` with your actual API key.
     value: "https://<your-openai-resource-name>.openai.azure.com/"
   - name: AZURE_OPENAI_DALLE_DEPLOYMENT_NAME
     value: "dalle-3-deployment"
-    
+
   ```
 
 ### Task 5: Deploy the Secrets
