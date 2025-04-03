@@ -88,7 +88,7 @@ echo -n "<your-api-key>" | base64
 ```
 Replace `<your-api-key>` with your actual API key.
 
-### Task 4: Update AI Service Deployment Configuration in the Deployment Files folder
+### Task 4: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
 #### 1. Modify Secrets YAML:
 - Edit the `secrets.yaml` file.
 - Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `API_KEY`.
@@ -97,6 +97,8 @@ Replace `<your-api-key>` with your actual API key.
 - Edit the `aps-all-in-one.yaml` file.
 - Replace the placeholders with the configurations you retrieved:
   ```yaml
+  
+  Configuration for AI
   - name: AZURE_OPENAI_API_VERSION
     value: "2024-07-01-preview"
   - name: AZURE_OPENAI_DEPLOYMENT_NAME
