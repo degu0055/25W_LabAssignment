@@ -90,8 +90,9 @@ Replace `<your-api-key>` with your actual API key.
 
 ### Task 4: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
 #### 1. Modify Secrets YAML:
-- Edit the `secrets.yaml` file.
-- Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `API_KEY`.
+- Edit the `secrets-AI.yaml` and `secrets-orderService.yaml` file.
+- Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `<your-api-key>`.
+- Replace `connectionString` placeholder with the Base64-encoded value of the `<your-api-key>`.
 
 #### 2. Modify Deployment YAML:
 - Edit the `aps-all-in-one.yaml` file.
