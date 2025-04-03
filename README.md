@@ -39,7 +39,63 @@ For this web app to function properly, an admin must first create a product list
 - Installed kubectl  
 - Azure Kubernetes Cluster  
 
-### Task 1: Set Up the AI Backing Services
+### Task 1: Connect Order-service to Azure Service Bus
+
+Create Azure Resources
+
+```sh
+az group create --name <resource-group-name> --location <location>
+az servicebus namespace create --name <namespace-name> --resource-group <resource-group-name>
+az servicebus queue create --name orders --namespace-name <namespace-name> --resource-group <resource-group-name>
+```
+
+Set Up Authentication
+- Using Managed Identity (Recommended)
+
+```sh
+PRINCIPALID=$(az ad signed-in-user show --query objectId -o tsv)
+SERVICEBUSBID=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query id -o tsv)
+
+az role assignment create --role "Azure Service Bus Data Sender" --assignee $PRINCIPALID --scope $SERVICEBUSBID
+```
+
+- Save Environment Variables
+
+```sh
+HOSTNAME=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
+
+cat << EOF > .env
+USE_WORKLOAD_IDENTITY_AUTH=true
+AZURE_SERVICEBUS_FULLYQUALIFIEDNAMESPACE=$HOSTNAME
+ORDER_QUEUE_NAME=orders
+EOF
+
+source .env # to push the variable on messagequeue.js
+
+```
+
+- Using Shared Access Policy (Alternative)
+
+```sh
+az servicebus queue authorization-rule create --name sender --namespace-name <namespace-name> --resource-group <resource-group-name> --queue-name orders --rights Send
+
+HOSTNAME=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
+PASSWORD=$(az servicebus queue authorization-rule keys list --namespace-name <namespace-name> --resource-group <resource-group-name> --queue-name orders --name sender --query primaryKey -o tsv)
+
+cat << EOF > .env
+ORDER_QUEUE_HOSTNAME=$HOSTNAME
+ORDER_QUEUE_PORT=5671
+ORDER_QUEUE_USERNAME=sender
+ORDER_QUEUE_PASSWORD="$PASSWORD"
+ORDER_QUEUE_TRANSPORT=tls
+ORDER_QUEUE_RECONNECT_LIMIT=10
+ORDER_QUEUE_NAME=orders
+EOF
+
+source .env
+```
+
+### Task 2: Set Up the AI Backing Services
 To enable AI-generated product descriptions and image generation features, you will deploy the required Azure OpenAI Services for GPT-4 (text generation) and DALL-E 3 (image generation). This step is essential to configure the AI Service component in the Algonquin Pet Store application.
 
 #### Create an Azure OpenAI Service Instance
@@ -59,7 +115,7 @@ To enable AI-generated product descriptions and image generation features, you w
 **Deploy the Resource:**  
 - Click **Review + Create** and then **Create** to deploy the Azure OpenAI service.  
 
-### Task 2: Deploy the GPT-4 and DALL-E 3 Models
+### Task 3: Deploy the GPT-4 and DALL-E 3 Models
 #### Access the Azure OpenAI Resource:
 - Navigate to the **Azure OpenAI** resource you just created.  
 
@@ -77,7 +133,7 @@ Once deployed, note down the following details for each model:
 - **Deployment Name**  
 - **Endpoint URL**  
 
-### Task 3: Retrieve and Configure API Keys
+### Task 4: Retrieve and Configure API Keys
 #### 1. Get API Keys:
 - Go to the **Keys and Endpoints** section of your Azure OpenAI resource.
 - Copy the **API Key (API key 1)** and **Endpoint URL**.  
@@ -88,7 +144,7 @@ echo -n "<your-api-key>" | base64
 ```
 Replace `<your-api-key>` with your actual API key.
 
-### Task 4: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
+### Task 5: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
 #### 1. Modify Secrets YAML:
 - Edit the `secrets-AI.yaml` and `secrets-orderService.yaml` file.
 - Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `<your-api-key>`.
@@ -96,6 +152,7 @@ Replace `<your-api-key>` with your actual API key.
 
 #### 2. Modify Deployment YAML:
 - Edit the `aps-all-in-one.yaml` file.
+- Remove RabbitMQ configuration
 - Replace the placeholders with the configurations you retrieved:
   ```yaml
 
@@ -131,7 +188,7 @@ Replace `<your-api-key>` with your actual API key.
 
   ```
 
-### Task 5: Deploy the Secrets
+### Task 6: Deploy the Secrets
 
 #### Create and Deploy the Secret for OpenAI API:
 - Make sure that you have replaced `Base64-encoded-API-KEY` in `secrets-orderService.yaml` and `secrets-AI.yaml` with your Base64-encoded OpenAI API key.
@@ -160,9 +217,7 @@ kubectl create secret generic openai-api-secret \
 
 ```
 
-
-
-### Task 6: Deploy the Application
+### Task 7: Deploy the Application
 ```sh
 kubectl apply -f aps-all-in-one.yaml
 ```
