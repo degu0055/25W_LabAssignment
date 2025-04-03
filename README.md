@@ -98,7 +98,7 @@ Replace `<your-api-key>` with your actual API key.
 - Replace the placeholders with the configurations you retrieved:
   ```yaml
   
-  Configuration for AI
+  # Configuration for AI
   - name: AZURE_OPENAI_API_VERSION
     value: "2024-07-01-preview"
   - name: AZURE_OPENAI_DEPLOYMENT_NAME
