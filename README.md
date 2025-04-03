@@ -146,6 +146,22 @@ kubectl apply -f secrets-AI.yaml
 kubectl get secrets
 ```
 
+- If you prefer not to store secrets in a YAML file, you can use this method in the CLI.
+
+```sh
+
+# Order-service
+kubectl create secret generic azure-servicebus-secret \
+  --from-literal=connectionString="your-actual-connection-string"
+
+# AI-service
+kubectl create secret generic openai-api-secret \
+  --from-literal=OPENAI_API_KEY="your-actual-api-key"
+
+```
+
+
+
 ### Task 6: Deploy the Application
 ```sh
 kubectl apply -f aps-all-in-one.yaml
