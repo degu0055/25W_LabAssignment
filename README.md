@@ -97,6 +97,20 @@ Replace `<your-api-key>` with your actual API key.
 - Edit the `aps-all-in-one.yaml` file.
 - Replace the placeholders with the configurations you retrieved:
   ```yaml
+
+    # Configuration for Order-service
+    - name: AZURE_SERVICE_BUS_CONNECTION_STRING
+    valueFrom:
+      secretKeyRef:
+        name: azure-servicebus-secret
+        key: connectionString
+  - name: AZURE_SERVICE_BUS_QUEUE_NAME
+    value: "<QUEUE_NAME>"
+  - name: AZURE_SERVICE_BUS_TOPIC_NAME
+    value: "<TOPIC_NAME>"
+  - name: AZURE_SERVICE_BUS_SUBSCRIPTION_NAME
+    value: "<SUBSCRIPTION_NAME>"
+
   
   # Configuration for AI
   - name: AZURE_OPENAI_API_VERSION
