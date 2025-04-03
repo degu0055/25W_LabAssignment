@@ -36,8 +36,8 @@ For this web app to function properly, an admin must first create a product list
 ## Deployment Instructions
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
 ### Prerequisite:
-- Installed kubectl  
-- Azure Kubernetes Cluster  
+- [Installed kubectl](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
+- [Azure Kubernetes Cluster](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 
 ### Task 1: Connect Order-service to Azure Service Bus
 
