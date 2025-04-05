@@ -147,7 +147,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: makeline-service
-          image: ramymohamed/makeline-service-l8:latest # Custom Makeline service image
+          image: degu0055/makeline-service-bestbuy:latest # Custom Makeline service image
           ports:
             - containerPort: 3001 # Makeline service listens on this port
           env: # Environment variables for configuration
@@ -354,7 +354,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: store-admin
-          image: degu0055/makeline-service-bestbuy:latest # Admin interface for store
+          image: ramymohamed/store-admin-l8:latest # Admin interface for store
           ports:
             - containerPort: 8081 # Admin app port
               name: store-admin
