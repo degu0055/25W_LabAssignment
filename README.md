@@ -85,25 +85,36 @@ az group create \
 
 Create Azure Resources
 
-```sh
+<!-- ```sh
 az group create --name <resource-group-name> --location <location>
 az servicebus namespace create --name <namespace-name> --resource-group <resource-group-name>
 az servicebus queue create --name orders --namespace-name <namespace-name> --resource-group <resource-group-name>
+``` -->
+
+```sh
+az group create --name BestBuyRg --location canadacentral
+az servicebus namespace create --name BestBuyNamespace --resource-group BestBuyRg
+az servicebus queue create --name orders --namespace-name BestBuyNamespace --resource-group BestBuyRg
 ```
 
 Set Up Authentication
 - Using Managed Identity (Recommended)
 
-```sh
+<!-- ```sh
 PRINCIPALID=$(az ad signed-in-user show --query objectId -o tsv)
 SERVICEBUSBID=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query id -o tsv)
 
 az role assignment create --role "Azure Service Bus Data Sender" --assignee $PRINCIPALID --scope $SERVICEBUSBID
+``` -->
+
+```sh
+PRINCIPALID=$(az ad signed-in-user show --query objectId -o tsv)
+SERVICEBUSBID=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query id -o tsv)
 ```
 
 - Save Environment Variables
 
-```sh
+<!-- ```sh
 HOSTNAME=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
 
 cat << EOF > .env
@@ -114,15 +125,46 @@ EOF
 
 source .env # to push the variable on messagequeue.js
 
+``` -->
+
+```sh
+HOSTNAME=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
+
+cat << EOF > .env
+USE_WORKLOAD_IDENTITY_AUTH=true
+AZURE_SERVICEBUS_FULLYQUALIFIEDNAMESPACE=$HOSTNAME
+ORDER_QUEUE_NAME=orders
+EOF
+
+source .env # to push the variable on messagequeue.js
 ```
 
 - Using Shared Access Policy (Alternative)
 
-```sh
+<!-- ```sh
 az servicebus queue authorization-rule create --name sender --namespace-name <namespace-name> --resource-group <resource-group-name> --queue-name orders --rights Send
 
 HOSTNAME=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
 PASSWORD=$(az servicebus queue authorization-rule keys list --namespace-name <namespace-name> --resource-group <resource-group-name> --queue-name orders --name sender --query primaryKey -o tsv)
+
+cat << EOF > .env
+ORDER_QUEUE_HOSTNAME=$HOSTNAME
+ORDER_QUEUE_PORT=5671
+ORDER_QUEUE_USERNAME=sender
+ORDER_QUEUE_PASSWORD="$PASSWORD"
+ORDER_QUEUE_TRANSPORT=tls
+ORDER_QUEUE_RECONNECT_LIMIT=10
+ORDER_QUEUE_NAME=orders
+EOF
+
+source .env
+``` -->
+
+```sh
+az servicebus queue authorization-rule create --name sender --namespace-name BestBuyNamespace --resource-group BestBuyRg --queue-name orders --rights Send
+
+HOSTNAME=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
+PASSWORD=$(az servicebus queue authorization-rule keys list --namespace-name BestBuyNamespace --resource-group BestBuyRg --queue-name orders --name sender --query primaryKey -o tsv)
 
 cat << EOF > .env
 ORDER_QUEUE_HOSTNAME=$HOSTNAME
@@ -211,7 +253,6 @@ Replace `<your-api-key>` with your actual API key.
     value: "<TOPIC_NAME>"
   - name: AZURE_SERVICE_BUS_SUBSCRIPTION_NAME
     value: "<SUBSCRIPTION_NAME>"
-
   ```
 
   ```yaml
