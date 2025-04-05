@@ -152,11 +152,16 @@ spec:
             - containerPort: 3001 # Makeline service listens on this port
           env: # Environment variables for configuration
             - name: ORDER_DB_URI
-              value: "mongodb://mongodb:27017" # MongoDB connection string
+              value: "mongodb://mongodb:27017"
             - name: ORDER_DB_NAME
-              value: "orderdb" # Database name
+              value: "orderdb"
             - name: ORDER_DB_COLLECTION_NAME
-              value: "orders" # Collection name
+              value: "orders"
+            - name: AZURE_SERVICE_BUS_CONNECTION_STRING
+              valueFrom:
+                  secretKeyRef:
+                    name: azure-service-bus-secret
+                    key: connection-string
           resources: # Resource requests and limits
             requests:
               cpu: 1m
@@ -349,7 +354,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: store-admin
-          image: ramymohamed/store-admin-l8:latest # Admin interface for store
+          image: degu0055/makeline-service-bestbuy:latest # Admin interface for store
           ports:
             - containerPort: 8081 # Admin app port
               name: store-admin
@@ -428,13 +433,13 @@ spec:
             - name: AZURE_OPENAI_API_VERSION
               value: "2024-07-01-preview"
             - name: AZURE_OPENAI_DEPLOYMENT_NAME # required if using Azure OpenAI
-              value: ""
+              value: "gpt-4-2"
             - name: AZURE_OPENAI_ENDPOINT # required if using Azure OpenAI
-              value: ""
+              value: "https://degu0-m93wunux-swedencentral.cognitiveservices.azure.com/openai/deployments/gpt-4-2/chat/completions?api-version=2025-01-01-preview"
             - name: AZURE_OPENAI_DALLE_ENDPOINT
-              value: ""
+              value: "https://degu0-m93wunux-swedencentral.cognitiveservices.azure.com/openai/deployments/dall-e-3/images/generations?api-version=2024-02-01"
             - name: AZURE_OPENAI_DALLE_DEPLOYMENT_NAME
-              value: ""
+              value: "dall-e-3"
             - name: OPENAI_API_KEY # always required
               valueFrom:
                 secretKeyRef:
