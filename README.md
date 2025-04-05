@@ -41,42 +41,44 @@ For this web app to function properly, an admin must first create a product list
 2. [Azure Kubernetes Cluster](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 
 
-### Quick Setup (if you want to skip #2 prerequisite )
+### Quick Setup (if you want to skip #2 prerequisite)
+This can be done using terminal
+
 ```sh 
-    az login
+az login
 ```
 
 ```sh 
-    az group create \
-    --name BestBuyRg \
-    --location canadacentral
+az group create \
+--name BestBuyRg \
+--location canadacentral
 ```
 
 ```sh
-    az aks create \
-  --resource-group BestBuyRg \
-  --name BestBuyCluster \
-  --location canadacentral \
-  --nodepool-name masterpool \
-  --node-vm-size Standard_D2as_v4 \
-  --node-count 1 \
-  --generate-ssh-keys \
-  --vm-set-type VirtualMachineScaleSets \
-  --load-balancer-sku standard \
-  --tier Free \
-  --network-plugin azure \
-  --no-wait
+  az aks create \
+--resource-group BestBuyRg \
+--name BestBuyCluster \
+--location canadacentral \
+--nodepool-name masterpool \
+--node-vm-size Standard_D2as_v4 \
+--node-count 1 \
+--generate-ssh-keys \
+--vm-set-type VirtualMachineScaleSets \
+--load-balancer-sku standard \
+--tier Free \
+--network-plugin azure \
+--no-wait
 ```
 
 ```sh
-    az aks nodepool add \
-  --resource-group BestBuyRg \
-  --cluster-name BestBuyCluster \
-  --name workerspool \
-  --node-vm-size Standard_D2as_v4 \
-  --node-count 1 \
-  --mode User \
-  --no-wait
+  az aks nodepool add \
+--resource-group BestBuyRg \
+--cluster-name BestBuyCluster \
+--name workerspool \
+--node-vm-size Standard_D2as_v4 \
+--node-count 1 \
+--mode User \
+--no-wait
 ```
 
 ### Task 1: Connect Order-service to Azure Service Bus
