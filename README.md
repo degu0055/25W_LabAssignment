@@ -309,4 +309,11 @@ Upload the video to YouTube and include a link to the video in your README.md fi
 
 -->
 
+## Reference
+[Lab 6 - GitHub Repository](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
+
+[Lab 8 - GitHub Repository](https://github.com/ramymohamed10/Lab8_24F_CST8915)
+
+[Order Service - GitHub Repository](https://github.com/ramymohamed10/order-service-L8)
+
 
