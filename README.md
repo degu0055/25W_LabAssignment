@@ -309,6 +309,8 @@ Upload the video to YouTube and include a link to the video in your README.md fi
 
 -->
 
+[Lab Project Assignment](https://drive.google.com/drive/folders/1jhZCx8OWYEhi0KzdWlklff9rOgbELy74?usp=sharing)
+
 ## Reference
 [Lab 6 - GitHub Repository](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 
