@@ -104,12 +104,14 @@ Set Up Authentication
 PRINCIPALID=$(az ad signed-in-user show --query objectId -o tsv)
 SERVICEBUSBID=$(az servicebus namespace show --name <namespace-name> --resource-group <resource-group-name> --query id -o tsv)
 
-az role assignment create --role "Azure Service Bus Data Sender" --assignee $PRINCIPALID --scope $SERVICEBUSBID
+az role assignment create --assignee john.doe@example.com --role "Azure Service Bus Data Sender" --scope /subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/Microsoft.ServiceBus/namespaces/{namespace-name}
 ``` -->
 
 ```sh
 PRINCIPALID=$(az ad signed-in-user show --query objectId -o tsv)
 SERVICEBUSBID=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query id -o tsv)
+
+az role assignment create --assignee degu0055@algonquinlive.com --role "Azure Service Bus Data Sender" --scope /subscriptions/cdb9bdf3-e7ee-43e9-8f6c-ba7327868df1/resourceGroups/BestBuyRg/providers/Microsoft.ServiceBus/namespaces/BestBuyNamespace
 ```
 
 - Save Environment Variables
@@ -130,6 +132,7 @@ source .env # to push the variable on messagequeue.js
 ```sh
 HOSTNAME=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
 
+### By typing this, make sure you're in right order-service folder or directory
 cat << EOF > .env
 USE_WORKLOAD_IDENTITY_AUTH=true
 AZURE_SERVICEBUS_FULLYQUALIFIEDNAMESPACE=$HOSTNAME
@@ -137,6 +140,16 @@ ORDER_QUEUE_NAME=orders
 EOF
 
 source .env # to push the variable on messagequeue.js
+```
+
+Push to your docker hub, this will be later use on aps-all-in-one.yaml
+```sh
+docker buildx build --platform linux/amd64 -t degu0055/order-service-bestbuy:latest --push .
+```
+
+Create an authorization-rule
+```sh
+az servicebus queue authorization-rule create --name sender --namespace-name BestBuyNamespace --resource-group BestBuyRg --queue-name orders --rights Send
 ```
 
 - Using Shared Access Policy (Alternative)
@@ -177,6 +190,11 @@ ORDER_QUEUE_NAME=orders
 EOF
 
 source .env
+```
+
+Create an authorization-rule
+```sh
+az servicebus queue authorization-rule create --name sender --namespace-name <namespace-name> --resource-group <resource-group-name> --queue-name orders --rights Send
 ```
 
 ### Task 2: Set Up the AI Backing Services
@@ -288,11 +306,13 @@ kubectl get secrets
 
 - If you prefer not to store secrets in a YAML file, you can use this method in the CLI
 
+<!-- connection string = service bus que > settings > shared access policies -->
+
 ```sh
 
 # Order-service
 kubectl create secret generic azure-servicebus-secret \
-  --from-literal=connectionString="your-actual-connection-string"
+  --from-literal=connectionString="your-actual-connection-string" 
 
 # AI-service
 kubectl create secret generic openai-api-secret \
