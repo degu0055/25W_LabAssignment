@@ -36,6 +36,21 @@ For this web app to function properly, an admin must first create a product list
 ## Deployment Instructions
 <!-- Step-by-step instructions to deploy the application in a Kubernetes cluster. -->
 
+> **Note:** In order to use Azure services, you will need the following credentials:
+> 
+> - **Endpoint**: This is the URL that allows you to connect to the Azure service.
+> - **Secret**: This is a secure key used for authentication to ensure that only authorized users can access the Azure service.
+> 
+> Both the endpoint and secret are typically provided when setting up Azure services like Azure Storage, Azure Key Vault, or Azure Cognitive Services.
+> 
+> ## Steps to Access Azure Services:
+> 
+> 1. **Obtain the Endpoint**: Navigate to the Azure portal and find the endpoint for the specific service you wish to use.
+> 2. **Get the Secret**: Generate or retrieve the secret key for authentication purposes, which will also be found in the Azure portal.
+> 
+> With these credentials, you will be able to authenticate and use the various Azure services securely.
+
+
 ### Prerequisite:
 1. [Installed kubectl](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 2. [Azure Kubernetes Cluster](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)

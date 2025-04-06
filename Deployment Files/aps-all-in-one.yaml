@@ -446,9 +446,9 @@ spec:
             - name: AZURE_OPENAI_API_VERSION
               value: "2024-07-01-preview"
             - name: AZURE_OPENAI_DEPLOYMENT_NAME # required if using Azure OpenAI
-              value: "gpt-4-2"
-            - name: AZURE_OPENAI_ENDPOINT # required if using Azure OpenAI
-              value: "https://degu0-m93wunux-swedencentral.cognitiveservices.azure.com/openai/deployments/gpt-4-2/chat/completions?api-version=2025-01-01-preview"
+              value: "gpt-4"
+            - name: AZURE_OPENAI_ENDPOINT # required if using Azure OpenAI  
+              value: "https://degu0-m95au4wc-eastus2.cognitiveservices.azure.com/"
             - name: AZURE_OPENAI_DALLE_ENDPOINT
               value: "https://degu0-m93wunux-swedencentral.cognitiveservices.azure.com/openai/deployments/dall-e-3/images/generations?api-version=2024-02-01"
             - name: AZURE_OPENAI_DALLE_DEPLOYMENT_NAME
