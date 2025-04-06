@@ -107,11 +107,21 @@ SERVICEBUSBID=$(az servicebus namespace show --name <namespace-name> --resource-
 az role assignment create --assignee john.doe@example.com --role "Azure Service Bus Data Sender" --scope /subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/Microsoft.ServiceBus/namespaces/{namespace-name}
 ``` -->
 
-```sh
+<!-- ```sh Old
 PRINCIPALID=$(az ad signed-in-user show --query objectId -o tsv)
 SERVICEBUSBID=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query id -o tsv)
 
 az role assignment create --assignee degu0055@algonquinlive.com --role "Azure Service Bus Data Sender" --scope /subscriptions/cdb9bdf3-e7ee-43e9-8f6c-ba7327868df1/resourceGroups/BestBuyRg/providers/Microsoft.ServiceBus/namespaces/BestBuyNamespace
+``` -->
+
+```sh
+SERVICEBUSBID=$(az servicebus namespace show --name BestBuyNamespace --resource-group BestBuyRg --query id -o tsv)
+
+az role assignment create \
+  --assignee degu0055@algonquinlive.com \
+  --role "Azure Service Bus Data Sender" \
+  --scope $SERVICEBUSBID
+
 ```
 
 - Save Environment Variables
@@ -422,5 +432,7 @@ Upload the video to YouTube and include a link to the video in your README.md fi
 [Order Service - GitHub Repository](https://github.com/ramymohamed10/order-service-L8)
 
 [Makeline Service - Github Repository](https://github.com/ramymohamed10/makeline-service-L8)
+
+[Others] (https://github.com/ramymohamed10/algonquin-pet-store-on-steroids?tab=readme-ov-file)
 
 

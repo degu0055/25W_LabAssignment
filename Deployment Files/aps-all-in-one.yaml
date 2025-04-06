@@ -129,6 +129,7 @@ spec:
   selector:
     app: order-service
 ---
+# Deployment for Makeline Service (Updated for Azure Service Bus)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -151,17 +152,19 @@ spec:
           ports:
             - containerPort: 3001 # Makeline service listens on this port
           env: # Environment variables for configuration
-            - name: ORDER_DB_URI
-              value: "mongodb://mongodb:27017"
-            - name: ORDER_DB_NAME
-              value: "orderdb"
-            - name: ORDER_DB_COLLECTION_NAME
-              value: "orders"
-            - name: AZURE_SERVICE_BUS_CONNECTION_STRING
+            - name: SERVICE_BUS_CONNECTION_STRING
               valueFrom:
-                  secretKeyRef:
-                    name: azure-service-bus-secret
-                    key: connection-string
+                secretKeyRef:
+                  name: azure-servicebus-secret2
+                  key: connectionString2
+            - name: SERVICE_BUS_QUEUE_NAME
+              value: "orders" # Azure Service Bus queue name
+            - name: ORDER_DB_URI
+              value: "mongodb://mongodb:27017" # MongoDB connection string (if still needed)
+            - name: ORDER_DB_NAME
+              value: "orderdb" # Database name (if still needed)
+            - name: ORDER_DB_COLLECTION_NAME
+              value: "orders" # Collection name (if still needed)
           resources: # Resource requests and limits
             requests:
               cpu: 1m
@@ -189,6 +192,7 @@ spec:
             failureThreshold: 5
             initialDelaySeconds: 3
             periodSeconds: 3
+
 ---
 # Service for Makeline Service
 apiVersion: v1
@@ -354,7 +358,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: store-admin
-          image: ramymohamed/store-admin-l8:latest # Admin interface for store
+          image: degu0055/admin-bestbuy:latest # Admin interface for store
           ports:
             - containerPort: 8081 # Admin app port
               name: store-admin
