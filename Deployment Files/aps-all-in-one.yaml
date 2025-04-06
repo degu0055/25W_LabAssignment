@@ -129,13 +129,12 @@ spec:
   selector:
     app: order-service
 ---
-# Deployment for Makeline Service (Updated for Azure Service Bus)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: makeline-service
 spec:
-  replicas: 1 # Single replica
+  replicas: 1
   selector:
     matchLabels:
       app: makeline-service
@@ -148,51 +147,61 @@ spec:
         "kubernetes.io/os": linux
       containers:
         - name: makeline-service
-          image: degu0055/makeline-service-bestbuy:latest # Custom Makeline service image
+          image: degu0055/makeline-service-bestbuy:latest
           ports:
-            - containerPort: 3001 # Makeline service listens on this port
-          env: # Environment variables for configuration
+            - containerPort: 3001
+          env:
             - name: SERVICE_BUS_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
-                  name: azure-servicebus-secret2
+                  name: azure-service-bus-secrets2
                   key: connectionString2
             - name: SERVICE_BUS_QUEUE_NAME
-              value: "orders" # Azure Service Bus queue name
+              value: orders
+            - name: ORDER_QUEUE_URI
+              value: 'amqps://BestBuyNamespace.servicebus.windows.net'
+            - name: ORDER_QUEUE_USERNAME
+              value: listener
+            - name: ORDER_QUEUE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: order-queue-secret
+                  key: ORDER_QUEUE_PASSWORD
+            - name: ORDER_QUEUE_NAME
+              value: orders
             - name: ORDER_DB_URI
-              value: "mongodb://mongodb:27017" # MongoDB connection string (if still needed)
+              value: 'mongodb://mongodb:27017'
             - name: ORDER_DB_NAME
-              value: "orderdb" # Database name (if still needed)
+              value: orderdb
             - name: ORDER_DB_COLLECTION_NAME
-              value: "orders" # Collection name (if still needed)
-          resources: # Resource requests and limits
+              value: orders
+          resources:
             requests:
               cpu: 1m
               memory: 6Mi
             limits:
               cpu: 5m
               memory: 20Mi
-          startupProbe: # Initial health check
+          startupProbe:
             httpGet:
               path: /health
               port: 3001
             failureThreshold: 10
             periodSeconds: 5
-          readinessProbe: # Ready status probe
+          readinessProbe:
             httpGet:
               path: /health
               port: 3001
             failureThreshold: 3
             initialDelaySeconds: 3
             periodSeconds: 5
-          livenessProbe: # Ongoing health check
+          livenessProbe:
             httpGet:
               path: /health
               port: 3001
             failureThreshold: 5
             initialDelaySeconds: 3
             periodSeconds: 3
-
 ---
 # Service for Makeline Service
 apiVersion: v1

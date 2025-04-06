@@ -40,13 +40,8 @@ For this web app to function properly, an admin must first create a product list
 1. [Installed kubectl](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 2. [Azure Kubernetes Cluster](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 
-
 ### Quick Setup (if you want to skip #2 prerequisite)
 This can be done using terminal
-
-```sh 
-az login
-```
 
 ```sh 
 az group create \
@@ -79,6 +74,12 @@ az group create \
 --node-count 1 \
 --mode User \
 --no-wait
+```
+
+```sh 
+az login
+az account set --subscription 'subscribtion-id'
+az aks get-credentials --resource-group AlgonquinPetStoreRG --name AlgonquinPetStoreCluster
 ```
 
 ### Task 1: Connect Order-service to Azure Service Bus
@@ -207,7 +208,22 @@ Create an authorization-rule
 az servicebus queue authorization-rule create --name sender --namespace-name <namespace-name> --resource-group <resource-group-name> --queue-name orders --rights Send
 ```
 
-### Task 2: Set Up the AI Backing Services
+### Task 2: Connect Makeline service to Azure Service Bus
+
+```sh
+az servicebus namespace authorization-rule create --name listener --namespace-name <namespace-name> --resource-group $RGNAME --rights Listen
+
+HOSTNAME=$(az servicebus namespace show --name <namespace-name> --resource-group $RGNAME --query serviceBusEndpoint -o tsv | sed 's/https:\/\///;s/:443\///')
+PASSWORD=$(az servicebus namespace authorization-rule keys list --namespace-name <namespace-name> --resource-group $RGNAME --name listener --query primaryKey -o tsv)
+
+export ORDER_QUEUE_URI=amqps://$HOSTNAME
+export ORDER_QUEUE_USERNAME=listener
+export ORDER_QUEUE_PASSWORD=$PASSWORD
+export ORDER_QUEUE_NAME=orders
+```
+
+
+### Task 3: Set Up the AI Backing Services
 To enable AI-generated product descriptions and image generation features, you will deploy the required Azure OpenAI Services for GPT-4 (text generation) and DALL-E 3 (image generation). This step is essential to configure the AI Service component in the Algonquin Pet Store application.
 
 #### Create an Azure OpenAI Service Instance
@@ -227,7 +243,7 @@ To enable AI-generated product descriptions and image generation features, you w
 **Deploy the Resource:**  
 - Click **Review + Create** and then **Create** to deploy the Azure OpenAI service.  
 
-### Task 3: Deploy the GPT-4 and DALL-E 3 Models
+### Task 4: Deploy the GPT-4 and DALL-E 3 Models
 #### Access the Azure OpenAI Resource:
 - Navigate to the **Azure OpenAI** resource you just created.  
 
@@ -245,7 +261,7 @@ Once deployed, note down the following details for each model:
 - **Deployment Name**  
 - **Endpoint URL**  
 
-### Task 4: Retrieve and Configure API Keys
+### Task 5: Retrieve and Configure API Keys
 #### 1. Get API Keys:
 - Go to the **Keys and Endpoints** section of your Azure OpenAI resource.
 - Copy the **API Key (API key 1)** and **Endpoint URL**.  
@@ -256,7 +272,7 @@ echo -n "<your-api-key>" | base64
 ```
 Replace `<your-api-key>` with your actual API key.
 
-### Task 5: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
+### Task 6: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
 #### 1. Modify Secrets YAML:
 - Edit the `secrets-AI.yaml` and `secrets-orderService.yaml` file.
 - Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `<your-api-key>`.
@@ -299,7 +315,7 @@ Replace `<your-api-key>` with your actual API key.
 
   ```
 
-### Task 6: Deploy the Secrets
+### Task 7: Deploy the Secrets
 
 #### Create and Deploy the Secret for OpenAI API:
 - Make sure that you have replaced `Base64-encoded-API-KEY` in `secrets-orderService.yaml` and `secrets-AI.yaml` with your Base64-encoded OpenAI API key.
@@ -330,7 +346,7 @@ kubectl create secret generic openai-api-secret \
 
 ```
 
-### Task 7: Deploy the Application
+### Task 8: Deploy the Application
 ```sh
 kubectl apply -f aps-all-in-one.yaml
 ```
@@ -391,6 +407,9 @@ kubectl top nodes
 | Store-Front   | `https://github.com/degu0055/store-front-final`   |
 | Product-Service   | `https://github.com/degu0055/product-service-final`   |
 | Order-Service | `https://github.com/degu0055/order-service-final`   |
+| Makeline | `https://github.com/degu0055/makeline-service-L8-final`   |
+| Store Admin | `https://github.com/degu0055/store-admin-L8-final`   |
+
 
 ## Table of Docker Images
 | Service        | Docker Image Link |
@@ -398,6 +417,9 @@ kubectl top nodes
 | Store-Front   | `https://hub.docker.com/repository/docker/degu0055/store-front-bestbuy` |
 | Product-Service   | `https://hub.docker.com/repository/docker/degu0055/product-service-bestbuy/`   |
 | Order-Service | `https://hub.docker.com/repository/docker/degu0055/order-service-bestbuy/` |
+| Makeline | `https://hub.docker.com/repository/docker/degu0055/makeline-service-bestbuy/` |
+| Store Admin | `https://hub.docker.com/repository/docker/degu0055/admin-bestbuy/` |
+
 
 <!--  Uncomment this if found an answer
 ## Issues or Limitations (Optional)
@@ -433,6 +455,6 @@ Upload the video to YouTube and include a link to the video in your README.md fi
 
 [Makeline Service - Github Repository](https://github.com/ramymohamed10/makeline-service-L8)
 
-[Others] (https://github.com/ramymohamed10/algonquin-pet-store-on-steroids?tab=readme-ov-file)
+[Others](https://github.com/ramymohamed10/algonquin-pet-store-on-steroids?tab=readme-ov-file)
 
 
