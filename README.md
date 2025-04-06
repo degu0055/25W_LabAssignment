@@ -455,6 +455,8 @@ Upload the video to YouTube and include a link to the video in your README.md fi
 > **Note:** The AI isn’t functioning in this demonstration, but I managed to get it to work prior to the assignment.
 [Lab Project Assignment](https://drive.google.com/drive/folders/1jhZCx8OWYEhi0KzdWlklff9rOgbELy74?usp=sharing)
 
+[BackUp link](https://photos.app.goo.gl/frEPLkN7wYgxvsfA9)
+
 ## Reference
 [Lab 6 - GitHub Repository](https://github.com/ramymohamed10/Lab6_25W_CST8915/blob/main/README.md)
 
