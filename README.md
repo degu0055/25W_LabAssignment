@@ -452,7 +452,7 @@ Record a 5-minute max demo video showcasing the following:
 Upload the video to YouTube and include a link to the video in your README.md file under a "Demo Video" section. 
 
 -->
-
+> **Note:** The AI isn’t functioning in this demonstration, but I managed to get it to work prior to the assignment.
 [Lab Project Assignment](https://drive.google.com/drive/folders/1jhZCx8OWYEhi0KzdWlklff9rOgbELy74?usp=sharing)
 
 ## Reference
