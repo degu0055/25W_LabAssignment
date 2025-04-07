@@ -281,9 +281,9 @@ echo -n "<your-api-key>" | base64
 ```
 Replace `<your-api-key>` with your actual API key.
 
-### Task 6: Update AI Service & Order Servive Deployment Configuration in the Deployment Files folder
+### Task 6: Update AI Service, Order Servive, & Makeline Service  Deployment Configuration in the Deployment Files folder
 #### 1. Modify Secrets YAML:
-- Edit the `secrets-AI.yaml` and `secrets-orderService.yaml` file.
+- Edit the `secrets-AI.yaml`, `secrets-orderService.yaml`, * `secrets-makeline.yaml` file.
 - Replace `OPENAI_API_KEY` placeholder with the Base64-encoded value of the `<your-api-key>`.
 - Replace `connectionString` placeholder with the Base64-encoded value of the `<your-api-key>`.
 
@@ -309,7 +309,6 @@ Replace `<your-api-key>` with your actual API key.
   ```
 
   ```yaml
-
   # Configuration for AI
   - name: AZURE_OPENAI_API_VERSION
     value: "2024-07-01-preview"
@@ -321,7 +320,34 @@ Replace `<your-api-key>` with your actual API key.
     value: "https://<your-openai-resource-name>.openai.azure.com/"
   - name: AZURE_OPENAI_DALLE_DEPLOYMENT_NAME
     value: "dalle-3-deployment"
+  ```
 
+  ```yaml
+  # Configuration for Makeline
+    - name: SERVICE_BUS_CONNECTION_STRING
+    valueFrom:
+      secretKeyRef:
+        name: azure-service-bus-secrets2
+        key: connectionString2
+  - name: SERVICE_BUS_QUEUE_NAME
+    value: orders
+  - name: ORDER_QUEUE_URI
+    value: 'amqps://BestBuyNamespace.servicebus.windows.net'
+  - name: ORDER_QUEUE_USERNAME
+    value: listener
+  - name: ORDER_QUEUE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: order-queue-secret
+        key: ORDER_QUEUE_PASSWORD
+  - name: ORDER_QUEUE_NAME
+    value: orders
+  - name: ORDER_DB_URI
+    value: 'mongodb://mongodb:27017'
+  - name: ORDER_DB_NAME
+    value: orderdb
+  - name: ORDER_DB_COLLECTION_NAME
+    value: orders
   ```
 
 ### Task 7: Deploy the Secrets
@@ -332,6 +358,7 @@ Replace `<your-api-key>` with your actual API key.
 ```sh
 kubectl apply -f secrets-orderService.yaml
 kubectl apply -f secrets-AI.yaml
+kubectl apply -f secrets-makeline.yaml
 ```
 
 #### Verify:
@@ -353,6 +380,12 @@ kubectl create secret generic azure-servicebus-secret \
 kubectl create secret generic openai-api-secret \
   --from-literal=OPENAI_API_KEY="your-actual-api-key"
 
+# Makeline
+kubectl create secret generic azure-service-bus-secrets2 \
+  --from-literal=connectionString2="Endpoint=sb://example-servicebus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=H8vN+9uL3qfJk73S9xQwKcM5kYZz0b2+3EdVQhXGZsY="
+
+kubectl create secret generic order-queue-secret \
+  --from-literal=ORDER_QUEUE_PASSWORD="P@ssw0rd!xA7#Ld29zKwQP8vNcU"
 ```
 
 ### Task 8: Deploy the Application
@@ -467,6 +500,6 @@ Upload the video to YouTube and include a link to the video in your README.md fi
 
 [Makeline Service - Github Repository](https://github.com/ramymohamed10/makeline-service-L8)
 
-[Others](https://github.com/ramymohamed10/algonquin-pet-store-on-steroids?tab=readme-ov-file)
+<!-- [Others](https://github.com/ramymohamed10/algonquin-pet-store-on-steroids?tab=readme-ov-file) -->
 
 
