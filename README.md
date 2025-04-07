@@ -52,12 +52,13 @@ For this web app to function properly, an admin must first create a product list
 ### Quick Setup (if you want to skip #2 prerequisite)
 This can be done using terminal
 
+Resource Group:
 ```sh 
 az group create \
 --name BestBuyRg \
 --location canadacentral
 ```
-
+Kubernetes and masterpool:
 ```sh
   az aks create \
 --resource-group BestBuyRg \
@@ -74,6 +75,7 @@ az group create \
 --no-wait
 ```
 
+Woorkpool:
 ```sh
   az aks nodepool add \
 --resource-group BestBuyRg \
@@ -85,6 +87,7 @@ az group create \
 --no-wait
 ```
 
+Login to acces kubernetes:
 ```sh 
 az login
 az account set --subscription 'subscribtion-id'
