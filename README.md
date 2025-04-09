@@ -488,7 +488,7 @@ Record a 5-minute max demo video showcasing the following:
 Upload the video to YouTube and include a link to the video in your README.md file under a "Demo Video" section. 
 
 -->
-> **Note:** The AI isn’t functioning in this demonstration, but I managed to get it to work prior to the assignment
+> **Note:** The AI isn’t functioning in this demonstration, but I managed to get it to work prior to the assignment.
 > It is possible that the issue is due to quota limits, as there were days when I was troubleshooting the connection between Azure Service Bus, which I was unable to fix immediately.
 
 [Lab Project Assignment](https://drive.google.com/drive/folders/1jhZCx8OWYEhi0KzdWlklff9rOgbELy74?usp=sharing)
