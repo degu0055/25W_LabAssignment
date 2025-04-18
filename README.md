@@ -91,7 +91,7 @@ Login to acces kubernetes:
 ```sh 
 az login
 az account set --subscription 'subscribtion-id'
-az aks get-credentials --resource-group AlgonquinPetStoreRG --name AlgonquinPetStoreCluster
+az aks get-credentials --resource-group BestBuyRg --name BestBuyCluster
 ```
 
 ### Task 1: Connect Order-service to Azure Service Bus
